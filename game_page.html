@@ -13,17 +13,27 @@
         <header>Riskle - Enter Item to begin</header>
         <!--Will display items depending on what user puts in the search bar-->
         <section id="search bar">
-            <label> Find Item:
+            <label> Guess Item:
                 <input type="text" />
             </label>
+            <button id="guess-button" onclick="addrow('item-table')">click me</button>
         </section>
         <!--Wordle Content-->
         <section class="info-boxes">
-            <table>
-                <tr></tr>
+            <table id="item-table">
+                <tr>
+                    <th>Item</th>
+                    <th>Rarity</th>
+                    <th>Color</th>
+                    <th>Item Type</th>
+                    <th>Description</th>
+                    <th>Unlockable</th>
+                    <th>Expansion</th>
+                </tr>
             </table>
         </section>
     </main>
+    <script src="riskle_script.js"></script>
 </body>
 
 </html>
