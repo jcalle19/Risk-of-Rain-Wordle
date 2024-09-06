@@ -12,11 +12,12 @@
         <!--Page-Title-->
         <header>Riskle - Enter Item to begin</header>
         <!--Will display items depending on what user puts in the search bar-->
-        <section id="search bar">
+        <section id="search-bar">
+            <button onclick="generateItem()">Generate Item</button>
             <label> Guess Item:
-                <input type="text" />
+                <input type="text" id="search-input" />
             </label>
-            <button id="guess-button" onclick="addrow('item-table')">click me</button>
+            <button id="guess-button" onclick="makeGuess('hello', 'item-table')">click me</button>
         </section>
         <!--Wordle Content-->
         <section class="info-boxes">
