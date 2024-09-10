@@ -4,6 +4,7 @@
  * - add health system
  * - add all items (greens, reds, lunars, equipment)
  * - add suggestion and bug page
+ * - turn item map into json file
  * - add css to make it look passable
  * For next commit:
  * - Finished adding common and void items
@@ -79,7 +80,7 @@ const items = new Map([
     ["57leafclover", /*-------*/["57 Leaf Clover", ["Legendary"], ["Green"], ["Utility"], ["On-Proc"], ["Challenge"], ["Vanilla"]]],
     ["moltenperforator", /*---*/["Molten Perforator", ["Boss/Planet"], ["Orange", "Black"], ["Damage"], ["Chance", "On-hit", "AoE", "Explosive"], ["Unlocked"], ["Vanilla"]]],
     ["shapedglass", /*--------*/["Shaped Glass", ["Lunar"], ["White"], ["Damage"], ["Dmg-stat", "Health-stat"], ["Unlocked"], ["Vanilla"]]],
-    ["polylute", /*-----------*/["Polylute", ["Void"], ["Blue", "Purple"], ["Damage"], ["Chance", "On-hit", "Attack"], ["Unlocked"], ["SotV"]]],
+    ["polylute", /*-----------*/["Polylute", ["Void"], ["Blue"], ["Damage"], ["Chance", "On-hit", "Attack"], ["Unlocked"], ["SotV"]]],
     ["saferspaces", /*--------*/["Safer Spaces", ["Void"], ["Blue"], ["Utility"], ["Conditional", "Dmg-negation"], ["Unlocked"], ["SotV"]]],
     ["needletick", /*---------*/["Needletick", ["Void"], ["Purple"], ["Damage"], ["Chance", "On-hit", "Debuff", "Attack"], ["Unlocked"], ["SotV"]]],
     ["lostseerslenses", /*----*/["Lost Seer's Lenses", ["Void"], ["Blue", "Purple"], ["Damage"], ["Chance", "On-hit", "Attack"], ["Unlocked"], ["SotV"]]],
@@ -92,14 +93,14 @@ const items = new Map([
     ["tentabauble", /*--------*/["Tentabauble", ["Void"], ["Purple", "Blue"], ["Utility"], ["Chance", "On-hit", "Debuff"], ["Unlocked"], ["SotV"]]],
     ["benthicbloom", /*-------*/["Benthic Bloom", ["Void"], ["Blue"], ["Utility"], ["Conditional", "Items"], ["Unlocked"], ["SotV"]]],
     ["pluripotentlarva", /*---*/["Pluripotent Larva", ["Void"], ["Blue", "Black"], ["Utility"], ["Conditional", "when-hurt", "Items"], ["Unlocked"], ["SotV"]]],
-    ["newlyhatchedzoea", /*---*/["Newly Hatched Zoea", ["Void"], ["Purple"], ["Damage"], ["Conditional", "Minions"]]],
+    ["newlyhatchedzoea", /*---*/["Newly Hatched Zoea", ["Void"], ["Purple"], ["Damage"], ["Conditional", "Minions"], ["Unlocked"], ["SotV"]]],
 ]);
 
 //Makes array of keys and grabs random index
 function generateItem() {
     let itemsArray = Array.from(items.keys());
     current_item = itemsArray[Math.floor(Math.random() * itemsArray.length)];
-    //document.getElementById('gen-item').textContent = current_item;
+    console.log(current_item);
 }
 
 /** Takes guess from player and then,
@@ -110,32 +111,29 @@ function generateItem() {
  */
 function makeGuess(inputText, tableID) {
     let search_input = document.getElementById("search-input");
-    let guessed_input = search_input.value;
+    let guessed_input = search_input.value.toLowerCase().replace(/[\s'-]+/g, '');
+    guessed_item = items.get(guessed_input);
     //try {
-    guessed_item = items.get(guessed_input.toLowerCase().replace(/[\s'-]+/g, ''));
-    addrow(tableID, guessed_item);
-    search_input.value = "";
-    compareItems();
+        addrow(tableID, guessed_item);
+        search_input.value = "";
+        compareItems();
     //}
     //catch (error) {
-    //alert("Item does not exist!");
+        //alert("Something went wrong!");
     //}
 }
 //Called when user guesses
 function addrow(tableID, new_guess) {
     let table_proxy = document.getElementById(tableID)
     let new_row;
-    let curr_cell_text;
-    let id_list = [];
+
     if (guess_counter < 5) {
         new_row = table_proxy.insertRow(-1);
         //Inserting cells for all slots
         for (let cells = 0; cells < 7; cells++) {
-            curr_cell_text = document.createTextNode(guessed_item[cells]);
             new_cell = new_row.insertCell(cells);
             new_cell.id = "row-" + guess_counter + "-cell-" + cells;
-            id_list.push(new_cell.id); //for debugging
-            new_cell.appendChild(curr_cell_text);
+            new_cell.innerHTML = guessed_item[cells].toString().replace(/[,]+/g, '<br>');
         }
         guess_counter++;
     }
@@ -181,7 +179,7 @@ function compareAttributes(guessed_attributes, curr_attributes) {
         if (correct_count != 0) {
             if (correct_count === guessed_attributes[index].length && correct_count === curr_attributes[index].length) { //all correct and same size
                 color_test_array.push("green");
-                document.getElementById(current_cell_id).style.backgroundColor = "green";
+                document.getElementById(current_cell_id).style.backgroundColor = "#5eae2f";
             } else if (correct_count != guessed_attributes[index].length && guessed_attributes[index].length === curr_attributes[index].length) {//same size, not all correct
                 color_test_array.push("yellow");
                 document.getElementById(current_cell_id).style.backgroundColor = "yellow";
@@ -206,3 +204,4 @@ function deleteGuesses(tableID) {
     guess_counter = 0;
     document.getElementById('gen-item').textContent = `The item was: ${current_item}`;
 }
+
