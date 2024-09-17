@@ -31,6 +31,9 @@ let difficulty = 0;
  * - on a timer, etc. Sorry if its broad but each category only has a couple items and I wanted to keep the number of descriptors to a minimum while 
  * - still explaining the item
  */
+const game_state = {
+    current_item : "none",
+}
 
 function start_game() {
     document.getElementById("gameplay-section").style.display = "block";
@@ -53,15 +56,15 @@ function makeGuess(inputText, tableID) {
     let search_input = document.getElementById("search-input");
     let guessed_input = search_input.value.toLowerCase().replace(/[\s'-]+/g, ''); //removes special characters and spaces to match keys
     guessed_item = items.get(guessed_input);
-    try {
+    //try {
         addrow(tableID, guessed_item);
         search_input.value = "";
         compareItems();
-    }
-    catch (error) {
-        alert("Something went wrong!");
-        console.log(error);
-    }
+    //}
+    //catch (error) {
+        //alert("Something went wrong!");
+        //console.log(error);
+    //}
 }
 //Called when user guesses
 function addrow(tableID, new_guess) {
