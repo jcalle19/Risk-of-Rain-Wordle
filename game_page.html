@@ -9,31 +9,43 @@
 
 <body>
     <main>
-        <!--Page-Title-->
-        <header>Riskle of Rainle 2-le - Enter Item to begin</header>
-        <!--Will display items depending on what user puts in the search bar-->
-        <section id="search-bar">
-            <button onclick="generateItem()">Generate Item</button>
-            <label> Guess Item:
-                <input type="text" id="search-input" />
-            </label>
-            <button id="guess-button" onclick="makeGuess('hello', 'item-table')">click me</button>
+        <section id="settings">
+            <button id="start-button" onclick="start_game()">Start Game</button>
+            <button id="artifact-menu" onclick="alert('Work in Progress')">Artifacts</button><br>
+            <button id="difficulty-easy">Drizzle</button>
+            <button id="difficulty-normal">Rainstorm</button>
+            <button id="difficulty-hard">Monsoon</button>
         </section>
-        <!--Wordle Content-->
-        <section class="info-boxes">
-            <table id="item-table">
-                <tr>
-                    <th>Item</th>
-                    <th>Rarity</th>
-                    <th>Color</th>
-                    <th>Item Type</th>
-                    <th>Description</th>
-                    <th>Unlockable</th>
-                    <th>Expansion</th>
-                </tr>
-            </table>
+        <section id="gameplay-section" style="display:none">
+            <!--Page-Title-->
+            <header>Riskle of Rainle 2-le - Enter Item to begin</header>
+            <!--Will display items depending on what user puts in the search bar-->
+            <section id="search-bar">
+                <div><p>Insert Generated Item</p></div>
+                <p id="gen-item"></p>
+                <button  id="gen-button" onclick="generateItem()">Generate Item</button>
+                <label> Guess Item:
+                    <input type="text" id="search-input" />
+                </label>
+                <button id="guess-button" onclick="makeGuess('hello', 'item-table')">click me</button>
+            </section>
+            <!--Wordle Content-->
+            <section class="info-boxes">
+                <table id="item-table">
+                    <tr>
+                        <th>Item</th>
+                        <th>Rarity</th>
+                        <th>Color</th>
+                        <th>Item Type</th>
+                        <th>Description</th>
+                        <th>Unlockable</th>
+                        <th>Expansion</th>
+                    </tr>
+                </table>
+            </section>
         </section>
     </main>
+    <script src="item_map.js"></script>
     <script src="riskle_script.js"></script>
 </body>
 

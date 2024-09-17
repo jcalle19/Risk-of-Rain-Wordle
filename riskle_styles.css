@@ -33,7 +33,7 @@ table th {
 
 table td {
     border: 1px solid black;
-    color: white;
+    color: #F6FFF0;
     text-shadow: 1px 1px #040303;
 }
 
@@ -46,4 +46,14 @@ table td {
 
 #search-bar *{
     margin: 1vh auto;
+}
+/*#f3ff00*/
+#test-square {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    border-left: 5px solid #9b0202;
+    border-bottom: 5px solid #f65353;
+    border-top: 5px solid #f65353;
+    border-right: 5px solid #9b0202;
 }
