@@ -12,7 +12,7 @@ body {
     font-family: Bombardier;
 }
 
-table {
+.center {
     margin: 0 auto;
 }
 
@@ -35,6 +35,15 @@ table td {
     border: 1px solid black;
     color: #F6FFF0;
     text-shadow: 1px 1px #040303;
+}
+
+#health-bar {
+    height: 25px;
+    width: 30vw;
+    background-color: #5eae2f;
+    color: #F6FFF0;
+    padding: auto;
+    text-align: center;
 }
 
 #search-bar{

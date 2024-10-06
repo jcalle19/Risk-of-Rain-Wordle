@@ -27,12 +27,33 @@
             current_item : "none",
             guessed_item : "none",
             guess_counter : 0,
-            difficulty : 0,
+            max_guesses : 0,
+            difficulty : "none",
+            health : 0,
+        },
+
+        set_difficulty : function(difficulty, health) {
+            try {
+                this.status.difficulty =  difficulty;
+                shown_difficulty = document.getElementById("current-difficulty");
+                shown_difficulty.innerHTML = difficulty;
+                this.update_health(health); //setting starting health
+
+            } catch (error) {
+                alert("Something wrong with difficulty");
+            }
+        },
+
+        update_health : function(health) {
+            displayed_health = document.getElementById("health-bar");
+            displayed_health.innerHTML = `${health} / ${health}`;
+            this.status.health = health;
         },
 
         start_game : function() {
             this.generateItem();
             document.getElementById("gameplay-section").style.display = "block";
+            document.getElementById("health-section").style.display = "block";
         },
     
         //Makes array of keys and grabs random index
@@ -172,7 +193,12 @@
                 table_proxy.deleteRow(1);
             }
             this.status.guess_counter = 0;
-            document.getElementById('gen-item').innerHTML = `The item was: ${this.status.current_item}`;
+            document.getElementById('gen-item').innerHTML = `The item was: ${items.get(this.status.current_item)[0]}`;
+        },
+
+        resetGame : function(tableID) {
+            this.deleteGuesses(tableID);
+            this.start_game();
         }
     }
 

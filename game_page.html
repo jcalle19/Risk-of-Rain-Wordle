@@ -12,16 +12,19 @@
         <section id="settings">
             <button id="start-button" onclick="webApp.start_game()">Start Game</button>
             <button id="artifact-menu" onclick="alert('Work in Progress')">Artifacts</button><br>
-            <button id="difficulty-easy">Drizzle</button>
-            <button id="difficulty-normal">Rainstorm</button>
-            <button id="difficulty-hard">Monsoon</button>
+            <button id="difficulty-easy" onclick="webApp.set_difficulty('Drizzle', 1000)">Drizzle</button>
+            <button id="difficulty-normal" onclick = "webApp.set_difficulty('Rainstorm', 800)">Rainstorm</button>
+            <button id="difficulty-hard" onclick="webApp.set_difficulty('Monsoon', 600)">Monsoon</button>
+            <div id="current-difficulty">Drizzle</div>
         </section>
         <section id="gameplay-section" style="display:none">
             <!--Page-Title-->
             <header>Riskle of Rainle 2-le - Enter Item to begin</header>
             <!--Will display items depending on what user puts in the search bar-->
+            <section id="health-section" style="display:none">
+                    <div id="health-bar" class="center">1000 / 1000</div>
+            </section>
             <section id="search-bar">
-                <div><p>Insert Generated Item</p></div>
                 <p id="gen-item"></p>
                 <label> Guess Item:
                     <input type="text" id="search-input" />
@@ -30,7 +33,7 @@
             </section>
             <!--Wordle Content-->
             <section class="info-boxes">
-                <table id="item-table">
+                <table id="item-table" class="center">
                     <tr>
                         <th>Item</th>
                         <th>Rarity</th>
@@ -42,6 +45,7 @@
                     </tr>
                 </table>
             </section>
+            <button id="reset-game" onclick="webApp.resetGame('item-table')">Reset</button>
         </section>
     </main>
     <script src="item_map.js"></script>
