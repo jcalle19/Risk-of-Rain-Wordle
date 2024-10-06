@@ -7,7 +7,7 @@
     src: url('./resources/BOMBARD_.ttf');
 }
 body {
-    width: 100vw;
+    width: 95vw;
     height: 100vh;
     font-family: Bombardier;
 }
