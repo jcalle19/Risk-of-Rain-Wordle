@@ -10,7 +10,7 @@
 <body>
     <main>
         <section id="settings">
-            <button id="start-button" onclick="start_game()">Start Game</button>
+            <button id="start-button" onclick="webApp.start_game()">Start Game</button>
             <button id="artifact-menu" onclick="alert('Work in Progress')">Artifacts</button><br>
             <button id="difficulty-easy">Drizzle</button>
             <button id="difficulty-normal">Rainstorm</button>
@@ -23,11 +23,10 @@
             <section id="search-bar">
                 <div><p>Insert Generated Item</p></div>
                 <p id="gen-item"></p>
-                <button  id="gen-button" onclick="generateItem()">Generate Item</button>
                 <label> Guess Item:
                     <input type="text" id="search-input" />
                 </label>
-                <button id="guess-button" onclick="makeGuess('hello', 'item-table')">click me</button>
+                <button id="guess-button" onclick="webApp.makeGuess('hello', 'item-table')">click me</button>
             </section>
             <!--Wordle Content-->
             <section class="info-boxes">
