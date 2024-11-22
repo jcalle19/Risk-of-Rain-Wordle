@@ -37,17 +37,20 @@
                 this.status.difficulty =  difficulty;
                 shown_difficulty = document.getElementById("current-difficulty");
                 shown_difficulty.innerHTML = difficulty;
-                this.update_health(health); //setting starting health
+                this.update_health(health, health); //setting starting health
 
             } catch (error) {
                 alert("Something wrong with difficulty");
             }
         },
 
-        update_health : function(health) {
+        update_health : function(health, new_health) {
+            let health_percent;
             displayed_health = document.getElementById("health-bar");
+            this.status.health = new_health;
+            health_percent = 100 * (Number(new_health)/Number(health));
             displayed_health.innerHTML = `${health} / ${health}`;
-            this.status.health = health;
+            displayed_health.style.width='$(health_percent)%';
         },
 
         start_game : function() {
@@ -71,16 +74,21 @@
         makeGuess : function(inputText, tableID) {
             let search_input = document.getElementById("search-input");
             let guessed_input = search_input.value.toLowerCase().replace(/[\s'-]+/g, ''); //removes special characters and spaces to match keys
-            this.status.guessed_item = items.get(guessed_input);
-        //try {
-            this.addRow(tableID, this.status.guessed_item);
-            search_input.value = "";
-            this.compareItems();
-        //}
-        //catch (error) {
-            //alert("Something went wrong!");
-            //console.log(error);
-        //}
+            if (items.has(guessed_input)) {
+                try {
+                    this.status.guessed_item = items.get(guessed_input);
+                    this.addRow(tableID, this.status.guessed_item);
+                    search_input.value = "";
+                    this.compareItems();
+                }
+                catch (error) {
+                    alert("Something went wrong!");
+                    console.log(error);
+                }
+            }
+            else {
+                alert("Item does not exist!");
+            }
         },
     
         addRow : function(tableID, new_guess) {
