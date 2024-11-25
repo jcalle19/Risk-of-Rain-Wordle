@@ -30,6 +30,7 @@
             max_guesses : 0,
             difficulty : "none",
             health : 0,
+            health_initial : 0,
         },
 
         set_difficulty : function(difficulty, health) {
@@ -37,26 +38,40 @@
                 this.status.difficulty =  difficulty;
                 shown_difficulty = document.getElementById("current-difficulty");
                 shown_difficulty.innerHTML = difficulty;
-                this.update_health(health, health); //setting starting health
-
+                this.set_health(health); //setting starting health
             } catch (error) {
                 alert("Something wrong with difficulty");
             }
         },
 
-        update_health : function(health, new_health) {
+        set_health : function(health_initial) {
+            this.status.health_initial = health_initial;
+            this.status.health = health_initial;
+        },
+
+        update_health : function(new_health) {
             let health_percent;
-            displayed_health = document.getElementById("health-bar");
-            this.status.health = new_health;
-            health_percent = 100 * (Number(new_health)/Number(health));
-            displayed_health.innerHTML = `${health} / ${health}`;
-            displayed_health.style.width='$(health_percent)%';
+            let healthBar = document.getElementById("health-bar");
+            let displayed_health = document.getElementById("health-tag");
+            let missing_health = document.getElementById("missing-health");
+            this.status.health = Number(new_health);
+            console.log(new_health);
+            health_percent = 100 * (new_health / this.status.health_initial);
+            displayed_health.innerHTML = `${new_health} / ${this.status.health_initial}`;
+            healthBar.style.width = String(health_percent) + "%";
+            missing_health.style.width = String(100-health_percent) + "%";
+
         },
 
         start_game : function() {
-            this.generateItem();
-            document.getElementById("gameplay-section").style.display = "block";
-            document.getElementById("health-section").style.display = "block";
+            if (this.status.difficulty === "none") {
+                alert("Please Select a Difficulty");
+            } else {
+                this.generateItem();
+                this.update_health(this.status.health_initial);
+                document.getElementById("gameplay-section").style.display = "block";
+                document.getElementById("health-section").style.display = "block";
+            }
         },
     
         //Makes array of keys and grabs random index
@@ -74,43 +89,39 @@
         makeGuess : function(inputText, tableID) {
             let search_input = document.getElementById("search-input");
             let guessed_input = search_input.value.toLowerCase().replace(/[\s'-]+/g, ''); //removes special characters and spaces to match keys
-            if (items.has(guessed_input)) {
-                try {
-                    this.status.guessed_item = items.get(guessed_input);
-                    this.addRow(tableID, this.status.guessed_item);
-                    search_input.value = "";
-                    this.compareItems();
+            if (this.status.health != 0) {
+                if (items.has(guessed_input)) {
+                    try {
+                        this.status.guessed_item = items.get(guessed_input);
+                        this.addRow(tableID, this.status.guessed_item);
+                        search_input.value = "";
+                        this.compareItems(tableID);
+                    }
+                    catch (error) {
+                        alert("Something went wrong!");
+                        console.log(error);
+                    }
                 }
-                catch (error) {
-                    alert("Something went wrong!");
-                    console.log(error);
-                }
-            }
-            else {
-                alert("Item does not exist!");
+                
             }
         },
     
         addRow : function(tableID, new_guess) {
             let table_proxy = document.getElementById(tableID)
             let new_row;
-    
-            if (this.status.guess_counter < 5) {
-                new_row = table_proxy.insertRow(-1);
-                //Inserting cells for all slots
-                for (let cells = 0; cells < 7; cells++) {
-                    new_cell = new_row.insertCell(cells);
-                    new_cell.id = "row-" + this.status.guess_counter + "-cell-" + cells;
-                    new_cell.innerHTML = this.status.guessed_item[cells].toString().replace(/[,]+/g, '<br>');
-                }
-                this.status.guess_counter++;
+            
+            new_row = table_proxy.insertRow(-1);
+            //Inserting cells for all slots
+            for (let cells = 0; cells < 7; cells++) {
+                new_cell = new_row.insertCell(cells);
+                new_cell.id = "row-" + this.status.guess_counter + "-cell-" + cells;
+                new_cell.innerHTML = this.status.guessed_item[cells].toString().replace(/[,]+/g, '<br>');
             }
-            //update ask counter to reset guesses
-            else this.deleteGuesses(tableID);
+            this.status.guess_counter++;
         },
     
         //comparing guessed item and current item
-        compareItems : function() {
+        compareItems : function(tableID) {
             let current_attributes = items.get(this.status.current_item);
             let formatted_guess = (this.status.guessed_item[0].toLowerCase()).replace(/[\s'-]+/g, ''); //now in key format
             if (formatted_guess == this.status.current_item) {
@@ -119,7 +130,11 @@
             }
             else {
                 console.log(this.status.current_item);
-                this.compareAttributes(this.status.guessed_item, current_attributes);
+                this.update_health(this.status.health - 100);
+                if (this.status.health === 0) {
+                    this.deleteGuesses(tableID);
+                }
+                else this.compareAttributes(this.status.guessed_item, current_attributes);
             }
         },
     
