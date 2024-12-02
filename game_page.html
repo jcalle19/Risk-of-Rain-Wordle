@@ -21,22 +21,24 @@
             <!--Page-Title-->
             <header>Riskle of Rainle 2-le - Enter Item to begin</header>
             <!--Will display items depending on what user puts in the search bar-->
-            <section id="health-section" style="display:none">
+            <section id="guess-health" style="position: fixed;right:10%;">
+                <section id="health-section" style="display:none">
                     <label id="health-tag"">1000 / 1000</label>
                     <section id="flex-format">
                         <div id="health-bar" class="center"></div>
                         <div id="missing-health"></div>
                     </section>
-            </section>
-            <section id="search-bar">
-                <p id="gen-item"></p>
-                <label> Guess Item:
-                    <input type="text" id="search-input" />
-                </label>
-                <button id="guess-button" onclick="webApp.makeGuess('hello', 'item-table')">click me</button>
+                </section>
+                <section id="search-bar">
+                    <p id="gen-item"></p>
+                    <label> Guess Item:
+                        <input type="text" id="search-input" />
+                    </label>
+                    <button id="guess-button" onclick="webApp.makeGuess('hello', 'item-table')">click me</button>
+                </section>
             </section>
             <!--Wordle Content-->
-            <section class="info-boxes">
+            <section class="info-boxes" style="display: inline-block;margin-left: 0">
                 <table id="item-table" class="center">
                     <tr>
                         <th>Item</th>

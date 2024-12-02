@@ -1,7 +1,6 @@
 /**
  * TODO: 
  * - Make the final guess remain while restricting any future guesses
- * - add health system
  * - add all items (greens, reds, lunars, equipment)
  * - add suggestion and bug page
  * - turn item map into json file
@@ -54,12 +53,19 @@
             let healthBar = document.getElementById("health-bar");
             let displayed_health = document.getElementById("health-tag");
             let missing_health = document.getElementById("missing-health");
+
+            //Modification section
             this.status.health = Number(new_health);
-            console.log(new_health);
             health_percent = 100 * (new_health / this.status.health_initial);
+
+            //Style section
             displayed_health.innerHTML = `${new_health} / ${this.status.health_initial}`;
             healthBar.style.width = String(health_percent) + "%";
+            if (new_health != this.status.health_initial) { //Only give missing health a display if player guesses
+                missing_health.style.display = "block";
+            }
             missing_health.style.width = String(100-health_percent) + "%";
+
 
         },
 
@@ -93,7 +99,7 @@
                 if (items.has(guessed_input)) {
                     try {
                         this.status.guessed_item = items.get(guessed_input);
-                        this.addRow(tableID, this.status.guessed_item);
+                        this.addRow(tableID, guessed_input);
                         search_input.value = "";
                         this.compareItems(tableID);
                     }
@@ -109,10 +115,13 @@
         addRow : function(tableID, new_guess) {
             let table_proxy = document.getElementById(tableID)
             let new_row;
-            
-            new_row = table_proxy.insertRow(-1);
+            let new_cell;
             //Inserting cells for all slots
-            for (let cells = 0; cells < 7; cells++) {
+            new_row = table_proxy.insertRow(-1);
+            new_cell = new_row.insertCell(0);
+            new_cell.innerHTML=`<img src=\"./resources/${new_guess}.jpg\" placeholder=\"placeholder\"><br>
+                                <p class="item-label">${this.status.guessed_item[0].toString().replace(" ", '<br>')}</p>`;
+            for (let cells = 1; cells < 7; cells++) {
                 new_cell = new_row.insertCell(cells);
                 new_cell.id = "row-" + this.status.guess_counter + "-cell-" + cells;
                 new_cell.innerHTML = this.status.guessed_item[cells].toString().replace(/[,]+/g, '<br>');

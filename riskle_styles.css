@@ -23,6 +23,18 @@ th, td {
     height: 80px;
 }
 
+img {
+    max-width: 9vw;
+    min-width: 45px;
+    max-height: 45px;
+    margin-top: 5px;
+}
+
+.item-label {
+    font-size: 12px;
+    margin: 0 auto 5px;
+}
+
 table th {
     background-color: rgba(42,36,36, 90);
     color: #cd1c63;
@@ -35,6 +47,8 @@ table td {
     border: 1px solid black;
     color: #F6FFF0;
     text-shadow: 1px 1px #040303;
+    background-color: #2f2f31;
+
 }
 
 #health-section {
@@ -58,6 +72,8 @@ table td {
     border-bottom: 3px solid #408816;
     border-top: 3px solid #85da54;
     border-right: 3px solid #85da54;
+    transition: width .3s;
+    transition-timing-function: ease-in-out;
 }
 
 #health-tag {
@@ -70,9 +86,12 @@ table td {
 }
 
 #missing-health {
+    display: none;
     border: 3px solid #F6FFF0;
     width: 0;
     margin-right: 0;
+    transition: width .3s;
+    transition-timing-function: ease-in-out;
 }
 
 #search-bar{
