@@ -86,8 +86,8 @@ table td {
 }
 
 #missing-health {
-    display: none;
-    border: 3px solid #F6FFF0;
+    display: block;
+    border: 3px solid white;
     width: 0;
     margin-right: 0;
     transition: width .3s;

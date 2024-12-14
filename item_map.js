@@ -74,6 +74,7 @@ const items = new Map([
     ["warbanner", /*----------*/["Warbanner", [common], [red, yellow], [utility], [conditional, atkSpeed, spdStat], [unlocked], [vanilla]]],
     //["warpedecho", /*---------*/["Warped Echo", [common]]], <- Genuinly do not know how to describe this
     ["ukulele", /*------------*/["Ukulele", [uncommon], [brown], [damage], [chance, onHit, AoE, attack], [unlocked], [vanilla]]],
+    ["atgmissilemk1",/*-------*/["AtG Missile Mk1", [uncommon], [green, black], [damage], [chance, onHit, attack], [unlocked], [vanilla]]],
     ["57leafclover", /*-------*/["57 Leaf Clover", [legendary], [green], [utility], [chance], [challenge], [vanilla]]],
     ["moltenperforator", /*---*/["Molten Perforator", [boss_planet], [orange, black], [damage], [chance, onHit, AoE, explosive], [unlocked], [vanilla]]],
     ["shapedglass", /*--------*/["Shaped Glass", [lunar], [white], [damage], [dmgStat, healthStat], [unlocked], [vanilla]]],

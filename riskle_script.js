@@ -62,7 +62,7 @@
             displayed_health.innerHTML = `${new_health} / ${this.status.health_initial}`;
             healthBar.style.width = String(health_percent) + "%";
             if (new_health != this.status.health_initial) { //Only give missing health a display if player guesses
-                missing_health.style.display = "block";
+                missing_health.style.borderColor = "#F6FFF0";
             }
             missing_health.style.width = String(100-health_percent) + "%";
 
