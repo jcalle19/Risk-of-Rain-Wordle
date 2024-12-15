@@ -114,6 +114,7 @@
     
         addRow : function(tableID, new_guess) {
             let table_proxy = document.getElementById(tableID)
+            let dynamicContainer = document.getElementById("dynamic-container");
             let new_row;
             let new_cell;
             //Inserting cells for all slots
@@ -122,13 +123,37 @@
             new_cell.innerHTML=`<img src=\"./resources/${new_guess}.jpg\" placeholder=\"placeholder\"><br>
                                 <p class="item-label">${this.status.guessed_item[0].toString().replace(" ", '<br>')}</p>`;
             for (let cells = 1; cells < 7; cells++) {
+                new_cell.class = "appear-animate";
                 new_cell = new_row.insertCell(cells);
                 new_cell.id = "row-" + this.status.guess_counter + "-cell-" + cells;
                 new_cell.innerHTML = this.status.guessed_item[cells].toString().replace(/[,]+/g, '<br>');
+                this.enterAnimation(table_proxy, new_cell, cells, dynamicContainer);
+
             }
             this.status.guess_counter++;
         },
     
+        enterAnimation : function(table, new_cell, order, container) {
+            requestAnimationFrame(() => {
+                const tableInfo = table.getBoundingClientRect();
+                const cellInfo = new_cell.getBoundingClientRect();
+                console.log(cellInfo.width, cellInfo.height, cellInfo.top, cellInfo.left);
+
+                let posX = cellInfo.left - tableInfo.left;
+                let posY = cellInfo.top - tableInfo.top;
+                let delay = order * .1;
+                let animationTile = document.createElement("section");
+                animationTile.classList.add("testsection", "appear-animate");
+                animationTile.style.cssText = `width:${cellInfo.width}px; height:${cellInfo.height}px; top:${posY}px; left:${posX}px;`;
+                animationTile.offsetHeight;
+                animationTile.innerHTML = `<div class="tile rise-animate" style="animation-delay:${delay}s"></div>` +
+                                          `<div class="tile rise-animate" style="animation-delay:${delay + .1}s"></div>` +
+                                          `<div class="tile rise-animate" style="animation-delay:${delay + .2}s"></div>` +
+                                          `<div class="tile rise-animate" style="animation-delay:${delay + .3}s"></div>`;
+                container.appendChild(animationTile);
+            });           
+        },
+
         //comparing guessed item and current item
         compareItems : function(tableID) {
             let current_attributes = items.get(this.status.current_item);

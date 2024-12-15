@@ -9,7 +9,7 @@
 
 <body>
     <main>
-        <section id="settings">
+        <section id="settings" style="z-index:100">
             <button id="start-button" onclick="webApp.start_game()">Start Game</button>
             <button id="artifact-menu" onclick="alert('Work in Progress')">Artifacts</button><br>
             <button id="difficulty-easy" onclick="webApp.set_difficulty('Drizzle', 1000)">Drizzle</button>
@@ -21,9 +21,9 @@
             <!--Page-Title-->
             <header>Riskle of Rainle 2-le - Enter Item to begin</header>
             <!--Will display items depending on what user puts in the search bar-->
-            <section id="guess-health" style="position: fixed;right:10%;">
+            <section id="guess-health" style="position: fixed;right:10%; z-index:100">
                 <section id="health-section" style="display:none">
-                    <label id="health-tag"">1000 / 1000</label>
+                    <label id="health-tag">1000 / 1000</label>
                     <section id="flex-format">
                         <div id="health-bar" class="center"></div>
                         <div id="missing-health"></div>
@@ -38,8 +38,9 @@
                 </section>
             </section>
             <!--Wordle Content-->
-            <section class="info-boxes" style="display: inline-block;margin-left: 0">
-                <table id="item-table" class="center">
+            <section class="info-boxes" style="display:inline-block;margin-left: 0">
+                <section id="dynamic-container"></section>
+                <table id="item-table" class="center" style="position:relative">
                     <tr>
                         <th>Item</th>
                         <th>Rarity</th>

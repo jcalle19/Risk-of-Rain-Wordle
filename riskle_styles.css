@@ -12,6 +12,60 @@ body {
     font-family: Bombardier;
 }
 
+#gameplay-section {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#dynamic-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.testsection {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 5px solid red;
+    z-index: 10;
+}
+
+.tile {
+    position: relative;
+    background-color: black;
+    border: 1px solid blue;
+    width: 50%;
+    height: 50%;
+}
+
+@keyframes appear {
+    0% {opacity: 0%;}
+    100% {opacity: 100%}
+}
+
+.appear-animate {
+    animation-name: appear;
+    animation-duration: .5s;
+    animation-delay: 0s;
+}
+
+@keyframes rise {
+    0% {transform: translateY(0);}
+    100% {transform: translateY(-50px);
+          opacity: 0%;}
+}
+
+.rise-animate {
+    animation-name: rise;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
 .center {
     margin: 0 auto;
 }
@@ -22,6 +76,7 @@ th, td {
     min-width: 100px;
     height: 80px;
 }
+
 
 img {
     max-width: 9vw;
@@ -48,7 +103,9 @@ table td {
     color: #F6FFF0;
     text-shadow: 1px 1px #040303;
     background-color: #2f2f31;
-
+    animation-name: appear;
+    animation-duration: .5s;
+    animation-delay: 0s;
 }
 
 #health-section {
