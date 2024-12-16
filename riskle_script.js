@@ -123,7 +123,6 @@
             new_cell.innerHTML=`<img src=\"./resources/${new_guess}.jpg\" placeholder=\"placeholder\"><br>
                                 <p class="item-label">${this.status.guessed_item[0].toString().replace(" ", '<br>')}</p>`;
             for (let cells = 1; cells < 7; cells++) {
-                new_cell.class = "appear-animate";
                 new_cell = new_row.insertCell(cells);
                 new_cell.id = "row-" + this.status.guess_counter + "-cell-" + cells;
                 new_cell.innerHTML = this.status.guessed_item[cells].toString().replace(/[,]+/g, '<br>');
@@ -141,7 +140,7 @@
 
                 let posX = cellInfo.left - tableInfo.left;
                 let posY = cellInfo.top - tableInfo.top;
-                let delay = order * .1;
+                let delay = order * .2;
                 let animationTile = document.createElement("section");
                 animationTile.classList.add("testsection", "appear-animate");
                 animationTile.style.cssText = `width:${cellInfo.width}px; height:${cellInfo.height}px; top:${posY}px; left:${posX}px;`;

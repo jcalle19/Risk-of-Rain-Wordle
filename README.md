@@ -10,7 +10,14 @@ Code Logic Overview (Work in Progress)
 - Repeat until success or no guesses left
 
 Currently in Progress
-- Health Bar and difficulty settings
+- animations
+  (when starting with soldier syringe the animation is not properly aligned)
+- need to fix reset button being unclickable
+- start button should not be available during game
+- add all items and images
+- touch up styles
+- finish main menu
+- other stuff idk
 
 Planned additions
 - Game Modifiers
