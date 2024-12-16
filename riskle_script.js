@@ -21,6 +21,7 @@
  * - on a timer, etc. Sorry if its broad but each category only has a couple items and I wanted to keep the number of descriptors to a minimum while 
  * - still explaining the item
  */
+
     webApp = {
         status : {
             current_item : "none",
@@ -75,6 +76,12 @@
             } else {
                 this.generateItem();
                 this.update_health(this.status.health_initial);
+                document.getElementById("start-button").style.display = "none";
+                document.getElementById("artifact-menu").style.display = "none";
+                document.getElementById("difficulty-easy").style.display = "none";
+                document.getElementById("difficulty-normal").style.display = "none";
+                document.getElementById("difficulty-hard").style.display = "none";
+                document.getElementById("reset-game").style.display = "block";
                 document.getElementById("gameplay-section").style.display = "block";
                 document.getElementById("health-section").style.display = "block";
             }
@@ -142,13 +149,11 @@
                 let posY = cellInfo.top - tableInfo.top;
                 let delay = order * .2;
                 let animationTile = document.createElement("section");
-                animationTile.classList.add("testsection", "appear-animate");
+                animationTile.classList.add("enter-section");
                 animationTile.style.cssText = `width:${cellInfo.width}px; height:${cellInfo.height}px; top:${posY}px; left:${posX}px;`;
                 animationTile.offsetHeight;
                 animationTile.innerHTML = `<div class="tile rise-animate" style="animation-delay:${delay}s"></div>` +
-                                          `<div class="tile rise-animate" style="animation-delay:${delay + .1}s"></div>` +
-                                          `<div class="tile rise-animate" style="animation-delay:${delay + .2}s"></div>` +
-                                          `<div class="tile rise-animate" style="animation-delay:${delay + .3}s"></div>`;
+                                          `<div class="tile fall-animate" style="animation-delay:${delay + .1}s"></div>`;
                 container.appendChild(animationTile);
             });           
         },

@@ -11,6 +11,7 @@
     <main>
         <section id="settings" style="z-index:100">
             <button id="start-button" onclick="webApp.start_game()">Start Game</button>
+            <button id="reset-game" onclick="webApp.resetGame('item-table')" style="display:none">Reset</button>
             <button id="artifact-menu" onclick="alert('Work in Progress')">Artifacts</button><br>
             <button id="difficulty-easy" onclick="webApp.set_difficulty('Drizzle', 1000)">Drizzle</button>
             <button id="difficulty-normal" onclick = "webApp.set_difficulty('Rainstorm', 800)">Rainstorm</button>
@@ -52,7 +53,6 @@
                     </tr>
                 </table>
             </section>
-            <button id="reset-game" onclick="webApp.resetGame('item-table')" style="z-index:100">Reset</button>
         </section>
     </main>
     <script src="item_map.js"></script>
