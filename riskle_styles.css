@@ -40,8 +40,10 @@ body {
 }
 
 @keyframes appear {
-    0% {opacity: 0%;}
-    100% {opacity: 100%}
+    0% {opacity: 0%;
+        transform: rotate3d(1,1,0,85deg);}
+    100% {opacity: 100%;
+          transform: ''}
 }
 
 .appear-animate {
@@ -53,6 +55,7 @@ body {
     0% {transform: translateY(0);}
     100% {transform: translateY(-50px);
           opacity: 0%;
+          z-index: -1;
           display: none;}
 }
 
@@ -116,10 +119,12 @@ table th {
 table td {
     border: 1px solid black;
     color: #F6FFF0;
+    opacity: 0%;
     text-shadow: 1px 1px #040303;
     background-color: #2f2f31;
     animation-name: appear;
-    animation-duration: .5s;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
 }
 
 #health-section {
@@ -175,6 +180,7 @@ table td {
 #search-bar *{
     margin: 1vh auto;
 }
+
 /*#f3ff00*/
 #test-hover {
     width: 100px;
@@ -184,9 +190,35 @@ table td {
     border-bottom: 5px solid #f65353;
     border-top: 5px solid #f65353;
     border-right: 5px solid #9b0202;
-    transition: transform 100ms ease-in;
+    transition: transform 0ms linear;
 }
-/*
-#test-hover:hover {
-    transform:rotate3d(1,2,-1,60deg);
-}*/
+
+.format-game {
+    display: flex;
+    flex-direction: row;
+}
+
+#info-display {
+    display: inline-block;
+    background-color: black;
+    border: 5px solid red;
+    height: 100%;
+    width:10%;
+}
+
+.undetermined {
+    color: #F6FFF0;
+}
+
+.green {
+    color: #5eae2f;
+}
+
+.yellow {
+    color: #cdd702;
+}
+
+.red {
+    color: red;
+}
+

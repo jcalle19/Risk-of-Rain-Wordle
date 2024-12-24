@@ -20,6 +20,8 @@
         </section>
         <section id="gameplay-section" style="display:none">
             <!--Page-Title-->
+            <section id="dynamic-container">
+            </section>
             <header>Riskle of Rainle 2-le - Enter Item to begin</header>
             <!--Will display items depending on what user puts in the search bar-->
             <section id="guess-health" style="position: fixed;right:10%; z-index:100">
@@ -39,24 +41,33 @@
                 </section>
             </section>
             <!--Wordle Content-->
-            <section class="info-boxes" style="display:inline-block;margin-left: 0">
-                <section id="dynamic-container"></section>
-                <table id="item-table" class="center" style="position:relative">
-                    <tr>
-                        <th>Item</th>
-                        <th>Rarity</th>
-                        <th>Color</th>
-                        <th>Item Type</th>
-                        <th>Description</th>
-                        <th>Unlockable</th>
-                        <th>Expansion</th>
-                    </tr>
-                </table>
-            </section>
+            <div class="format-game">
+                <section class="info-boxes" style="display:inline-block;margin-left: 0;border:5px solid red;">
+                    <table id="item-table" class="center" style="position:relative">
+                        <tr>
+                            <th>Item</th>
+                            <th>Rarity</th>
+                            <th>Color</th>
+                            <th>Item Type</th>
+                            <th>Description</th>
+                            <th>Unlockable</th>
+                            <th>Expansion</th>
+                        </tr>
+                    </table>
+                </section>
+                <section id="info-display">
+                    <div id="rarities"></div>
+                    <div id="colors"></div>
+                    <div id="item_type"></div>
+                    <div id="description"></div>
+                    <div id="unlockable"></div>
+                    <div id="expansion"></div>
+                </section>
+            </div>
         </section>
     </main>
     <script src="item_map.js"></script>
+    <script src="display_builder.js"></script>
     <script src="riskle_script.js"></script>
 </body>
-
 </html>

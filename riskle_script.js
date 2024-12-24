@@ -21,7 +21,6 @@
  * - on a timer, etc. Sorry if its broad but each category only has a couple items and I wanted to keep the number of descriptors to a minimum while 
  * - still explaining the item
  */
-
     webApp = {
         status : {
             current_item : "none",
@@ -31,6 +30,7 @@
             difficulty : "none",
             health : 0,
             health_initial : 0,
+            curr_color_array : [],
         },
 
         set_difficulty : function(difficulty, health) {
@@ -84,6 +84,7 @@
                 document.getElementById("reset-game").style.display = "block";
                 document.getElementById("gameplay-section").style.display = "block";
                 document.getElementById("health-section").style.display = "block";
+                display.setAll();
             }
         },
     
@@ -109,6 +110,7 @@
                         this.addRow(tableID, guessed_input);
                         search_input.value = "";
                         this.compareItems(tableID);
+                        display.buildAll();
                     }
                     catch (error) {
                         alert("Something went wrong!");
@@ -121,7 +123,6 @@
     
         addRow : function(tableID, new_guess) {
             let table_proxy = document.getElementById(tableID)
-            let dynamicContainer = document.getElementById("dynamic-container");
             let new_row;
             let new_cell;
             //Inserting cells for all slots
@@ -131,14 +132,14 @@
                                 <p class="item-label">${this.status.guessed_item[0].toString().replace(" ", '<br>')}</p>`;
             for (let cells = 1; cells < 7; cells++) {
                 new_cell = new_row.insertCell(cells);
+                new_cell.style.animationDelay = `${cells * .2}s`;
                 new_cell.id = "row-" + this.status.guess_counter + "-cell-" + cells;
                 new_cell.innerHTML = this.status.guessed_item[cells].toString().replace(/[,]+/g, '<br>');
-                this.enterAnimation(table_proxy, new_cell, cells, dynamicContainer);
-
             }
             this.status.guess_counter++;
         },
     
+        //might replace;
         enterAnimation : function(table, new_cell, order, container) {
             requestAnimationFrame(() => {
                 const tableInfo = table.getBoundingClientRect();
@@ -156,6 +157,32 @@
                                           `<div class="tile fall-animate" style="animation-delay:${delay + .1}s"></div>`;
                 container.appendChild(animationTile);
             });           
+        },
+
+        //Adds event listeners to each added cell for reactive rotation transitions
+        setRotations : function(cell, cellColor, gradColor) {
+            let cell_info = cell.getBoundingClientRect();
+            const originX = cell_info.left + (cell_info.width/2);
+            const originY = cell_info.top + (cell_info.height/2);
+
+            cell.addEventListener("mousemove", (event) => {
+                    let distance = Math.sqrt(((event.clientX - originX)**2) + ((event.clientY - originY)**2));
+                    let deg = distance / (cell_info.width/2) * 20;
+    
+                    let rotY = (event.clientX - originX) / (cell_info.width/2);
+                    let rotX = -1 * (event.clientY - originY) / (cell_info.height/2);
+
+                    cell.style.transform = `rotate3d(${rotX},${rotY},0,${deg}deg)`;
+                    cell.style.backgroundImage = `linear-gradient(${deg * 9}deg, ${cellColor}, ${gradColor})`;
+                    cell.style.boxShadow = `${-5 * rotY}px ${5 * rotX}px black`;
+                },
+            );
+            cell.addEventListener("mouseleave", (event)=> {
+                    cell.style.transform = `rotate3d(0,0,0,0deg)`;
+                    cell.style.backgroundImage = '';
+                    cell.style.boxShadow = '';
+                },
+            );
         },
 
         //comparing guessed item and current item
@@ -187,35 +214,38 @@
         */
         compareAttributes : function(guessed_attributes, curr_attributes) {
             let correct_count = 0;
-            let color_test_array = [];
+            let color_array = [];
             let current_cell_id;
             for (let index = 1; index < guessed_attributes.length; index++) {
                 current_cell_id = `row-${this.status.guess_counter - 1}-cell-${index}`;
+
                 for (let innerIndex = 0; innerIndex < guessed_attributes[index].length; innerIndex++) { //1
+                    console.log(guessed_attributes[index][innerIndex]);
                     if (curr_attributes[index].includes(guessed_attributes[index][innerIndex])) {
                         correct_count++;
                     }
-                    console.log(correct_count);
+                    //console.log(correct_count);
                 }
                 //If all of guessed are in current and they are the same size
                 if (correct_count != 0) {
                     if (correct_count === guessed_attributes[index].length && correct_count === curr_attributes[index].length) { //all correct and same size
-                        color_test_array.push("green");
+                        color_array.push('green');
                         this.color_cells(current_cell_id, "green");
                     } else if (correct_count != guessed_attributes[index].length && guessed_attributes[index].length === curr_attributes[index].length) {//same size, not all correct
-                        color_test_array.push("yellow");
+                        color_array.push("yellow");
                         this.color_cells(current_cell_id, "yellow");
                     } else if (guessed_attributes[index].length != curr_attributes[index].length) { //5, not same size, some correct
-                        color_test_array.push("yellow");
+                        color_array.push("yellow");
                         this.color_cells(current_cell_id, "yellow");
                     }
                 } else { //none correct
-                    color_test_array.push("red");
+                    color_array.push("red");
                     this.color_cells(current_cell_id, "red");
                 }
                 correct_count = 0;
+                display.curr_color_array = color_array;
             }
-            console.log(color_test_array);
+            //console.log(color_test_array);
         },
     
         color_cells : function(cell_id, color) {
@@ -227,6 +257,7 @@
                     cellElement.style.borderRight = "5px solid #408816";
                     cellElement.style.borderTop = "5px solid #85da54";
                     cellElement.style.borderBottom = "5px solid #85da54";
+                    this.setRotations(cellElement, 'green', '#85da54');
                     break;
                 case "yellow":
                     cellElement.style.backgroundColor = "#cdd702";
@@ -234,6 +265,7 @@
                     cellElement.style.borderRight = "5px solid #a4ab1c";
                     cellElement.style.borderTop = "5px solid #e5ec61";
                     cellElement.style.borderBottom = "5px solid #e5ec61";
+                    this.setRotations(cellElement, 'yellow', '#e5ec61');
                     break;
                 case "red":
                     cellElement.style.backgroundColor = "red";
@@ -241,6 +273,7 @@
                     cellElement.style.borderRight = "5px solid #9b0202";
                     cellElement.style.borderTop = "5px solid #f65353";
                     cellElement.style.borderBottom = "5px solid #f65353";
+                    this.setRotations(cellElement, 'red', '#f65353');
                     break;
                 default:
                     console.log("something went wrong in color_cells function");
