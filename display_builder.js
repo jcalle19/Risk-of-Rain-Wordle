@@ -2,6 +2,15 @@
 
 const display = {
     curr_color_array : [],
+    showInfo : function(cellId) {
+        let cell = document.getElementById(cellId);
+        cell.style.display = 'inline-block';
+    },
+
+    hideInfo : function(cellId) {
+        let cell = document.getElementById(cellId);
+        cell.style.display = 'none';
+    },
 
     setAll : function() {
         this.setInfoDisplay('rarities', this.displayInfo.green.rarity, this.displayInfo.yellow.rarity, this.displayInfo.red.rarity, this.displayInfo.undetermined.rarity);
@@ -50,7 +59,6 @@ const display = {
     setInfoDisplay : function(parentId, greens, yellows, reds, undetermined) {
         let infoElement = document.getElementById(parentId);
         infoElement.innerHTML = '';
-        console.log(greens);
         let greensArray = Array.from(greens.keys());
         let yellowsArray = Array.from(yellows.keys());
         let redsArray = Array.from(reds.keys());
@@ -158,6 +166,71 @@ const display = {
                 [vanilla, undetermined],[SotV, undetermined],[SotS, undetermined],
             ])
         }
-    }
+    },
+
+    displayInfoReset : {
+        green : {
+            rarity : new Map([]),
+            colors : new Map([]),
+            types : new Map([]),
+            behavior : new Map([]),
+            unlock : new Map([]),
+            expansion : new Map([]),
+        },
+    
+        yellow : {
+            rarity : new Map([]),
+            colors : new Map([]),
+            types : new Map([]),
+            behavior : new Map([]),
+            unlock : new Map([]),
+            expansion : new Map([]),
+        },
+    
+        red : {
+            rarity : new Map([]),
+            colors : new Map([]),
+            types : new Map([]),
+            behavior : new Map([]),
+            unlock : new Map([]),
+            expansion : new Map([]),
+        },
+    
+        undetermined : {
+            rarity : new Map([
+                [common, undetermined],[uncommon, undetermined],[legendary, undetermined],
+                [boss_planet, undetermined],[lunar, undetermined],[_void_, undetermined],
+            ]),
+    
+            colors : new Map ([
+                [yellow, undetermined],[black, undetermined],[grey, undetermined],
+                [green, undetermined],[purple, undetermined],[pink, undetermined],
+                [blue, undetermined],[white, undetermined],[brown, undetermined],
+                [red, undetermined],[orange, undetermined],[gold, undetermined],
+            ]),
+    
+            types : new Map ([
+                [damage, undetermined],[utility, undetermined],[healing, undetermined],
+            ]),
+    
+            behavior : new Map ([
+                [atkSpeed, undetermined],[AoE, undetermined],[dmgStat, undetermined],[debuff, undetermined],
+                [onKill, undetermined],[money, undetermined],[minions, undetermined],[conditional, undetermined],
+                [explosive, undetermined],[whenHurt, undetermined],[healthStat, undetermined],[survivorSkill, undetermined],
+                [attack, undetermined],[chance, undetermined],[heals, undetermined],[onHit, undetermined],
+                [dmgNegation, undetermined],[spdStat, undetermined],[consumable, undetermined],[armor, undetermined],
+                [_items_, undetermined],
+            ]),
+    
+            unlock : new Map ([
+                [unlocked, undetermined],[challenge, undetermined],
+            ]),
+    
+            expansion : new Map ([
+                [vanilla, undetermined],[SotV, undetermined],[SotS, undetermined],
+            ])
+        }
+    },
+
 
 }

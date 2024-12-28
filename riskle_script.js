@@ -292,6 +292,7 @@
 
         resetGame : function(tableID) {
             this.deleteGuesses(tableID);
+            display.displayInfo = display.displayInfoReset;
             this.start_game();
         }
     }

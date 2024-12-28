@@ -46,22 +46,22 @@
                     <table id="item-table" class="center" style="position:relative">
                         <tr>
                             <th>Item</th>
-                            <th>Rarity</th>
-                            <th>Color</th>
-                            <th>Item Type</th>
-                            <th>Description</th>
-                            <th>Unlockable</th>
-                            <th>Expansion</th>
+                            <th onmouseenter="display.showInfo('rarities')" onmouseleave="display.hideInfo('rarities')">Rarity</th>
+                            <th onmouseenter="display.showInfo('colors')" onmouseleave="display.hideInfo('colors')">Color</th>
+                            <th onmouseenter="display.showInfo('item_type')" onmouseleave="display.hideInfo('item_type')">Item Type</th>
+                            <th onmouseenter="display.showInfo('description')" onmouseleave="display.hideInfo('description')">Description</th>
+                            <th onmouseenter="display.showInfo('unlockable')" onmouseleave="display.hideInfo('unlockable')">Unlockable</th>
+                            <th onmouseenter="display.showInfo('expansion')" onmouseleave="display.hideInfo('expansion')">Expansion</th>
                         </tr>
                     </table>
                 </section>
                 <section id="info-display">
-                    <div id="rarities"></div>
-                    <div id="colors"></div>
-                    <div id="item_type"></div>
-                    <div id="description"></div>
-                    <div id="unlockable"></div>
-                    <div id="expansion"></div>
+                    <div id="rarities" style="display:none"></div>
+                    <div id="colors" style="display:none"></div>
+                    <div id="item_type" style="display:none"></div>
+                    <div id="description" style="display:none"></div>
+                    <div id="unlockable" style="display:none"></div>
+                    <div id="expansion" style="display:none"></div>
                 </section>
             </div>
         </section>
