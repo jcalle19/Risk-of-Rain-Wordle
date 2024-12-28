@@ -36,6 +36,20 @@ const challenge = "Challenge";
 const vanilla = "Vanilla"; 
 const SotV = "SotV"; 
 const SotS = "SotS";
+/*Colors*/
+const undetermined = '#F6FFF0';
+const greenBackground = '#5eae2f';
+const yellowBackground = '#cdd702';
+
+/*
+const attribtues = [common, uncommon, legendary, uncommon, _void_, boss_planet, lunar,
+    yellow, black, grey, green, purple, pink, blue, white, brown, red, orange, gold,
+    damage, healing, utility, atkSpeed, AoE, dmgStat, debuff, onKill, money, minions,
+    conditional, explosive, whenHurt, healthStat, survivorSkill, attack, chance, heals,
+    onHit, dmgNegation, spdStat, consumable, armor, _items_, unlocked, challenge, vanilla,
+    SotV, SotS,
+]
+*/
 
 const items = new Map([
     ["soldierssyringe", /*----*/["Soldier Syringe", [common], [yellow], [damage], [atkSpeed], [unlocked], [vanilla]]],
