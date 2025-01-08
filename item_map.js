@@ -107,3 +107,33 @@ const items = new Map([
     ["pluripotentlarva", /*---*/["Pluripotent Larva", [_void_], [blue, black], [utility], [conditional, whenHurt, _items_], [unlocked], [SotV]]],
     ["newlyhatchedzoea", /*---*/["Newly Hatched Zoea", [_void_], [purple], [damage], [conditional, minions], [unlocked], [SotV]]],
 ]);
+
+
+const items_sorted = new Map([
+    ["a", ["armorpiercingrounds", "antlershield", "atgmissilemk1"]],
+    ["b", ["bustlingfungus", "backupmagazine", "bisonsteak", "blisteringlantern", "bundleoffireworks","benthicbloom"]],
+    ["c", ["cautiousslug", "chronicexpansion", "crowbar"]],
+    ["d", ["delicatewatch"]],
+    ["e", ["energydrink", "encrustedkey"]],
+    ["f", ["focuscrystal"]],
+    ["g", ["gasoline"]],
+    ["h", []],
+    ["i", []],
+    ["j", []],
+    ["k", ["knockbackfin"]],
+    ["l", ["lensmakersglasses", "lostseerslenses", "lysatecell"]],
+    ["m", ["medkit", "mocha", "monstertooth", "moltenperforator"]],
+    ["n", ["needletick", "newlyhatchedzoea"]],
+    ["o", ["oddlyshapedopal"]],
+    ["p", ["paulsgoathoof", "personalshieldgenerator", "powerelixir", "polylute", "plasmashrimp", "pluripotentlarva"]],
+    ["q", []],
+    ["r", ["repulsionarmorplate", "rollofpennies", "rustedkey"]],
+    ["s", ["soldierssyringe", "stickybomb", "stungrenade", "shapedglass", "saferspaces", "singularityband"]],
+    ["t", ["tritipdagger", "topazbrooch", "toughertimes", "tentabauble"]],
+    ["u", ["ukulele"]],
+    ["v", ["voidsentflame"]],
+    ["w", ["warbanner", "weepingfungus"]],
+    ["x", []],
+    ["y", []],
+    ["z", []],
+]);

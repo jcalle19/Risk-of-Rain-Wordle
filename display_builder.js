@@ -1,7 +1,7 @@
-/*Heavily relies on the displa*/
-
 const display = {
     curr_color_array : [],
+    animation_active : false,
+
     showInfo : function(cellId) {
         let cell = document.getElementById(cellId);
         cell.style.display = 'inline-block';

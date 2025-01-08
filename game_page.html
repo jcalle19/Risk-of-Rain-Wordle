@@ -25,6 +25,13 @@
             <header>Riskle of Rainle 2-le - Enter Item to begin</header>
             <!--Will display items depending on what user puts in the search bar-->
             <section id="guess-health" style="position: fixed;right:10%; z-index:100">
+                <section id="battle-box" style="border: 5px solid red">
+                    <div id="enemy-box" class="battle-box-child" style="border: 5px solid red">player</div>
+                    <div id="palyer-box" class="battle-box-child" style="position: relative;border: 5px solid blue;">
+                        <p id="enemy-name"></p>
+                        <p id="enemy-health"></p>
+                    </div>
+                </section>
                 <section id="health-section" style="display:none">
                     <label id="health-tag">1000 / 1000</label>
                     <section id="flex-format">
@@ -42,11 +49,11 @@
             </section>
             <!--Wordle Content-->
             <div class="format-game">
-                <section class="info-boxes" style="display:inline-block;margin-left: 0;border:5px solid red;">
+                <section class="info-boxes" style="display:inline-block;margin-left: 0;">
                     <table id="item-table" class="center" style="position:relative">
                         <tr>
                             <th>Item</th>
-                            <th onmouseenter="display.showInfo('rarities')" onmouseleave="display.hideInfo('rarities')">Rarity</th>
+                            <th onmouseenter="display.showInfo('rarities')" onmouseleave="display.hideInfo('rarities')"">Rarity</th>
                             <th onmouseenter="display.showInfo('colors')" onmouseleave="display.hideInfo('colors')">Color</th>
                             <th onmouseenter="display.showInfo('item_type')" onmouseleave="display.hideInfo('item_type')">Item Type</th>
                             <th onmouseenter="display.showInfo('description')" onmouseleave="display.hideInfo('description')">Description</th>
@@ -56,18 +63,23 @@
                     </table>
                 </section>
                 <section id="info-display">
-                    <div id="rarities" style="display:none"></div>
-                    <div id="colors" style="display:none"></div>
-                    <div id="item_type" style="display:none"></div>
-                    <div id="description" style="display:none"></div>
-                    <div id="unlockable" style="display:none"></div>
-                    <div id="expansion" style="display:none"></div>
+                    <div id="rarities" class="reveal-animate" style="display:none; width: 100%; overflow: hidden; background-color: black;"></div>
+                    <div id="colors" class="reveal-animate" style="display:none; width: 100%; overflow: hidden; background-color: black;"></div>
+                    <div id="item_type" class="reveal-animate" style="display:none; width: 100%; overflow: hidden; background-color: black;"></div>
+                    <div id="description" class="reveal-animate" style="display:none; width: 100%; overflow: hidden; background-color: black;"></div>
+                    <div id="unlockable" class="reveal-animate" style="display:none; width: 100%; overflow: hidden; background-color: black;"></div>
+                    <div id="expansion" class="reveal-animate" style="display:none; width: 100%; overflow: hidden; background-color: black;"></div>
                 </section>
+            </div>
+            <div id="test-search" onclick="search.show_items()">
             </div>
         </section>
     </main>
     <script src="item_map.js"></script>
+    <script src="enemy_map.js"></script>
+    <script src="combat_handler.js"></script>
     <script src="display_builder.js"></script>
+    <script src="search_bar.js"></script>
     <script src="riskle_script.js"></script>
 </body>
 </html>

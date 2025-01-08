@@ -28,46 +28,20 @@
             guess_counter : 0,
             max_guesses : 0,
             difficulty : "none",
-            health : 0,
-            health_initial : 0,
             curr_color_array : [],
         },
+
+        guessed_items : [],
 
         set_difficulty : function(difficulty, health) {
             try {
                 this.status.difficulty =  difficulty;
                 shown_difficulty = document.getElementById("current-difficulty");
                 shown_difficulty.innerHTML = difficulty;
-                this.set_health(health); //setting starting health
+                combatHandler.set_health(health); //setting starting health
             } catch (error) {
                 alert("Something wrong with difficulty");
             }
-        },
-
-        set_health : function(health_initial) {
-            this.status.health_initial = health_initial;
-            this.status.health = health_initial;
-        },
-
-        update_health : function(new_health) {
-            let health_percent;
-            let healthBar = document.getElementById("health-bar");
-            let displayed_health = document.getElementById("health-tag");
-            let missing_health = document.getElementById("missing-health");
-
-            //Modification section
-            this.status.health = Number(new_health);
-            health_percent = 100 * (new_health / this.status.health_initial);
-
-            //Style section
-            displayed_health.innerHTML = `${new_health} / ${this.status.health_initial}`;
-            healthBar.style.width = String(health_percent) + "%";
-            if (new_health != this.status.health_initial) { //Only give missing health a display if player guesses
-                missing_health.style.borderColor = "#F6FFF0";
-            }
-            missing_health.style.width = String(100-health_percent) + "%";
-
-
         },
 
         start_game : function() {
@@ -75,7 +49,8 @@
                 alert("Please Select a Difficulty");
             } else {
                 this.generateItem();
-                this.update_health(this.status.health_initial);
+                combatHandler.update_player_health(combatHandler.player_info.health_initial);
+                combatHandler.generate_enemy();
                 document.getElementById("start-button").style.display = "none";
                 document.getElementById("artifact-menu").style.display = "none";
                 document.getElementById("difficulty-easy").style.display = "none";
@@ -91,6 +66,8 @@
         //Makes array of keys and grabs random index
         generateItem : function() {
             let itemsArray = Array.from(items.keys());
+
+            this.status.guessed_items = [];
             this.status.current_item = itemsArray[Math.floor(Math.random() * itemsArray.length)];
             console.log(this.status.current_item + " this one");
         },
@@ -103,14 +80,20 @@
         makeGuess : function(inputText, tableID) {
             let search_input = document.getElementById("search-input");
             let guessed_input = search_input.value.toLowerCase().replace(/[\s'-]+/g, ''); //removes special characters and spaces to match keys
-            if (this.status.health != 0) {
+            if (combatHandler.player_info.health != 0) {
                 if (items.has(guessed_input)) {
                     try {
-                        this.status.guessed_item = items.get(guessed_input);
-                        this.addRow(tableID, guessed_input);
-                        search_input.value = "";
-                        this.compareItems(tableID);
-                        display.buildAll();
+                        if (!(this.status.guessed_items.includes(items.get(guessed_input)))) {
+                            this.status.guessed_items.push(items.get(guessed_input));
+                            this.status.guessed_item = items.get(guessed_input);
+                            console.log(this.status.guessed_items);
+                            this.addRow(tableID, guessed_input);
+                            search_input.value = "";
+                            this.compareItems(tableID);
+                            display.buildAll();
+                        } else {
+                            alert("You already guessed that one")
+                        }
                     }
                     catch (error) {
                         alert("Something went wrong!");
@@ -120,13 +103,13 @@
                 
             }
         },
-    
+        
         addRow : function(tableID, new_guess) {
             let table_proxy = document.getElementById(tableID)
             let new_row;
             let new_cell;
             //Inserting cells for all slots
-            new_row = table_proxy.insertRow(-1);
+            new_row = table_proxy.insertRow(1);
             new_cell = new_row.insertCell(0);
             new_cell.innerHTML=`<img src=\"./resources/${new_guess}.jpg\" placeholder=\"placeholder\"><br>
                                 <p class="item-label">${this.status.guessed_item[0].toString().replace(" ", '<br>')}</p>`;
@@ -138,34 +121,17 @@
             }
             this.status.guess_counter++;
         },
-    
-        //might replace;
-        enterAnimation : function(table, new_cell, order, container) {
-            requestAnimationFrame(() => {
-                const tableInfo = table.getBoundingClientRect();
-                const cellInfo = new_cell.getBoundingClientRect();
-                console.log(cellInfo.width, cellInfo.height, cellInfo.top, cellInfo.left);
-
-                let posX = cellInfo.left - tableInfo.left;
-                let posY = cellInfo.top - tableInfo.top;
-                let delay = order * .2;
-                let animationTile = document.createElement("section");
-                animationTile.classList.add("enter-section");
-                animationTile.style.cssText = `width:${cellInfo.width}px; height:${cellInfo.height}px; top:${posY}px; left:${posX}px;`;
-                animationTile.offsetHeight;
-                animationTile.innerHTML = `<div class="tile rise-animate" style="animation-delay:${delay}s"></div>` +
-                                          `<div class="tile fall-animate" style="animation-delay:${delay + .1}s"></div>`;
-                container.appendChild(animationTile);
-            });           
-        },
 
         //Adds event listeners to each added cell for reactive rotation transitions
         setRotations : function(cell, cellColor, gradColor) {
             let cell_info = cell.getBoundingClientRect();
-            const originX = cell_info.left + (cell_info.width/2);
-            const originY = cell_info.top + (cell_info.height/2);
+            let originX;
+            let originY;
 
             cell.addEventListener("mousemove", (event) => {
+                    cell_info = cell.getBoundingClientRect();
+                    originX = cell_info.left + (cell_info.width/2);
+                    originY = cell_info.top + (cell_info.height/2);
                     let distance = Math.sqrt(((event.clientX - originX)**2) + ((event.clientY - originY)**2));
                     let deg = distance / (cell_info.width/2) * 20;
     
@@ -191,15 +157,19 @@
             let formatted_guess = (this.status.guessed_item[0].toLowerCase()).replace(/[\s'-]+/g, ''); //now in key format
             if (formatted_guess == this.status.current_item) {
                 this.compareAttributes(this.status.guessed_item, current_attributes);
+                combatHandler.update_enemy_health(0);
+                this.deleteGuesses(tableID);
+                this.generateItem();
                 alert("You Win! :)");
             }
             else {
-                console.log(this.status.current_item);
-                this.update_health(this.status.health - 100);
-                if (this.status.health === 0) {
+
+                this.compareAttributes(this.status.guessed_item, current_attributes);
+                combatHandler.update_player_health(combatHandler.player_info.health - combatHandler.calc_damage_received(display.curr_color_array));
+                combatHandler.update_enemy_health(combatHandler.enemy_info.health - combatHandler.calc_damage_dealt(display.curr_color_array));
+                if (combatHandler.player_info.health === 0) {
                     this.deleteGuesses(tableID);
                 }
-                else this.compareAttributes(this.status.guessed_item, current_attributes);
             }
         },
     
@@ -220,11 +190,9 @@
                 current_cell_id = `row-${this.status.guess_counter - 1}-cell-${index}`;
 
                 for (let innerIndex = 0; innerIndex < guessed_attributes[index].length; innerIndex++) { //1
-                    console.log(guessed_attributes[index][innerIndex]);
                     if (curr_attributes[index].includes(guessed_attributes[index][innerIndex])) {
                         correct_count++;
                     }
-                    //console.log(correct_count);
                 }
                 //If all of guessed are in current and they are the same size
                 if (correct_count != 0) {
@@ -245,7 +213,6 @@
                 correct_count = 0;
                 display.curr_color_array = color_array;
             }
-            //console.log(color_test_array);
         },
     
         color_cells : function(cell_id, color) {
