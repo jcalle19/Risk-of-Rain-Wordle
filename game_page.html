@@ -27,7 +27,7 @@
             <section id="guess-health" style="position: fixed;right:10%; z-index:100">
                 <section id="battle-box" style="border: 5px solid red">
                     <div id="enemy-box" class="battle-box-child" style="border: 5px solid red">player</div>
-                    <div id="palyer-box" class="battle-box-child" style="position: relative;border: 5px solid blue;">
+                    <div id="player-box" class="battle-box-child" style="position: relative;border: 5px solid blue;">
                         <p id="enemy-name"></p>
                         <p id="enemy-health"></p>
                     </div>
@@ -42,7 +42,7 @@
                 <section id="search-bar">
                     <p id="gen-item"></p>
                     <label> Guess Item:
-                        <input type="text" id="search-input" />
+                        <input type="text" id="search-input" onkeyup="search.set_item_list()"/>
                     </label>
                     <button id="guess-button" onclick="webApp.makeGuess('hello', 'item-table')">click me</button>
                 </section>
@@ -71,8 +71,7 @@
                     <div id="expansion" class="reveal-animate" style="display:none; width: 100%; overflow: hidden; background-color: black;"></div>
                 </section>
             </div>
-            <div id="test-search" onclick="search.show_items()">
-            </div>
+            <div id="input-search"></div>
         </section>
     </main>
     <script src="item_map.js"></script>

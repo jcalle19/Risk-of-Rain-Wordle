@@ -60,6 +60,7 @@
                 document.getElementById("gameplay-section").style.display = "block";
                 document.getElementById("health-section").style.display = "block";
                 display.setAll();
+                search.make_item_list();
             }
         },
     
@@ -260,6 +261,7 @@
         resetGame : function(tableID) {
             this.deleteGuesses(tableID);
             display.displayInfo = display.displayInfoReset;
+            search.clear();
             this.start_game();
         }
     }
