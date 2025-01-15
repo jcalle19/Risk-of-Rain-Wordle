@@ -52,7 +52,7 @@ const attribtues = [common, uncommon, legendary, uncommon, _void_, boss_planet, 
 */
 
 const items = new Map([
-    ["soldierssyringe", /*----*/["Soldier Syringe", [common], [yellow], [damage], [atkSpeed], [unlocked], [vanilla]]],
+    ["soldierssyringe", /*----*/["Soldier's Syringe", [common], [yellow], [damage], [atkSpeed], [unlocked], [vanilla]]],
     ["bustlingfungus", /*-----*/["Bustling Fungus", [common], [green], [healing], [conditional, heals, AoE], [unlocked], [vanilla]]],
     ["tritipdagger", /*-------*/["Tri-Tip Dagger", [common], [white, black], [damage], [chance, onHit, debuff], [unlocked], [vanilla]]],
     ["repulsionarmorplate", /**/["Repulsion Armor Plate", [common], [grey], [utility], [whenHurt, dmgNegation], [unlocked], [vanilla]]],
@@ -137,3 +137,47 @@ const items_sorted = new Map([
     ["y", []],
     ["z", []],
 ]);
+
+const  items_effect_values = new Map([
+    ['soldierssyringe', [/*+10% base damage*/(d,n) => {return d + (.1 * n)}]],
+    ['lensmakersglasses', [/*+10% critical strike chance*/ (d,n) => {return d + (.1 * n)}]],
+    ['bustlingfungus', [/*+5 health per yellow square per stack*/(h,n) => {return h + (5 * n)}]],
+    ['topazbrooch', [/*+1 armor per enemy kill*/ (n) => {return n}]],
+    ['toughertimes', [/*chance to dodge attacks*/ (n) => {return ((.15 * n) / (.15 * n + 1))}]],
+    ['atgmissilemk1', []],
+    ['runaldsband', []],
+    ['chronobauble', []],
+    ['ghorstome', []],
+    ['infusion', []],
+    ['leptondaisy',[]],
+    ['oldguillotine',[]],
+    ['hardlightafterburner',[]],
+    ['brilliantbehemoth',[]],
+    ['rejuvenationrack', []],
+]);
+
+/*note for future
+    implementing items
+    1. make sure the items work before anything
+        - manually give them and test the stats
+    2. give option to buy items after each kill
+        - make them take up the slots on the table after clearing it 
+        - need table clear animation and item clear animation
+
+    ok maybe you can do it in either order
+
+    in order to implement any of the aoe items you need to revamp the combat system
+
+    try to only add items that affect 1 enemy or ones that modify player stats
+
+    your problem is you are bouncing around too much, you have the core working and now
+    its time to fully flesh out the other stuff
+
+    FULLY COMPLETE THE ITEM SYSTEM BEFORE MOVING ON!!!
+
+    make item selection appear on the item table once removing the player guesses
+    add gold mechanic and let players choose when to move on to the next stage
+    hide items and make player choose which random ones to get
+
+    3 enemies at once?
+*/

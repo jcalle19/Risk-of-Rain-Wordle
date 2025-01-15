@@ -34,7 +34,7 @@
                 </section>
                 <section id="health-section" style="display:none">
                     <label id="health-tag">1000 / 1000</label>
-                    <section id="flex-format">
+                    <section class="flex-format-row">
                         <div id="health-bar" class="center"></div>
                         <div id="missing-health"></div>
                     </section>
@@ -45,6 +45,7 @@
                         <input type="text" id="search-input" onkeyup="search.set_item_list()"/>
                     </label>
                     <button id="guess-button" onclick="webApp.makeGuess('hello', 'item-table')">click me</button>
+                    <div id="input-search"></div>
                 </section>
             </section>
             <!--Wordle Content-->
@@ -71,7 +72,6 @@
                     <div id="expansion" class="reveal-animate" style="display:none; width: 100%; overflow: hidden; background-color: black;"></div>
                 </section>
             </div>
-            <div id="input-search"></div>
         </section>
     </main>
     <script src="item_map.js"></script>

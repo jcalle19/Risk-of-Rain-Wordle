@@ -132,11 +132,16 @@ th, td {
 }
 
 
-img {
+table img {
     max-width: 9vw;
     min-width: 45px;
     max-height: 45px;
     margin-top: 5px;
+}
+
+.search-img {
+    max-width: 2vw;
+    height: auto;
 }
 
 .item-label {
@@ -163,13 +168,23 @@ table td {
     animation-fill-mode: forwards;
 }
 
+#input-search {
+    display: flex;
+    flex-direction: column;
+    gap: none;
+    width: 200px;
+    height: 200px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
 #health-section {
     width: 30vw;
     margin: 0;
     position: relative;
 }
 
-#flex-format {
+.flex-format-row {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;

@@ -2,16 +2,20 @@ const combatHandler = {
     player_info : {
         health_modifier : 1,
         health_initial : 0,
+        level : 1,
         health : 0,
         damage : 10,
         armor : 0,
+        critical_chance : .1,
+        items : new Map([]),
     },
 
     enemy_info : {
         name : '',
+        health_modifier : 1,
+        level : 1,
         damage : 0,
         health : 0,
-        health_modifier : 1,
         modifier : 'none',
     },
 
