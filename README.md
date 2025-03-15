@@ -1,11 +1,11 @@
 # Risk-of-Rain-Wordle
 Wordle game that uses items from the game Risk of Rain 2 instead. Inspired by the game seen at Isaacle.com
 
-###############################################################################################################
+#############################################################################################
 Progress currently halted due to other priorities, currently funcitions as a wordle game with some of the items
 but the extra functionality (player upgrades and stage progression) not currently implemented. Only unprivating
 because I am pretty proud of what I have so far and will 100% return to this project in the future.
-###############################################################################################################
+#############################################################################################
 
 
 Code Logic Overview (Work in Progress)
