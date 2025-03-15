@@ -1,6 +1,13 @@
 # Risk-of-Rain-Wordle
 Wordle game that uses items from the game Risk of Rain 2 instead. Inspired by the game seen at Isaacle.com
 
+#############################################################################################
+Progress currently halted due to other priorities, currently funcitions as a wordle game with some of the items
+but the extra functionality (player upgrades and stage progression) not currently implemented. Only unprivating
+because I am pretty proud of what I have so far and will 100% return to this project in the future.
+#############################################################################################
+
+
 Code Logic Overview (Work in Progress)
 - Player starts by selecting the start game button, which automatically generates a random item from the item map in a separate script
 - The player enters an item in the guess bar, and the guess is formatted to match the keys (lowercase, no spaces/other symbols)
