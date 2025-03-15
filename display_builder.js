@@ -36,7 +36,6 @@ const display = {
             let guessedAttributes = webApp.status.guessed_item[colorArrayIndex + 1];
             let updatedElement;
             for (let i = 0; i < guessedAttributes.length; i++) {
-                console.log(guessedAttributes[i]);
                 updatedElement = document.getElementById(guessedAttributes[i]);
                 undetermined.delete(String(guessedAttributes[i]));
                 if (attributeColor === 'green') {

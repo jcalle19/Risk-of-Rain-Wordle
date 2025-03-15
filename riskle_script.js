@@ -49,8 +49,7 @@
                 alert("Please Select a Difficulty");
             } else {
                 this.generateItem();
-                combatHandler.update_player_health(combatHandler.player_info.health_initial);
-                combatHandler.generate_enemy();
+                combatHandler.game_start();
                 document.getElementById("start-button").style.display = "none";
                 document.getElementById("artifact-menu").style.display = "none";
                 document.getElementById("difficulty-easy").style.display = "none";
@@ -262,6 +261,7 @@
             this.deleteGuesses(tableID);
             display.displayInfo = display.displayInfoReset;
             search.clear();
+            combatHandler.clear_items();
             this.start_game();
         }
     }

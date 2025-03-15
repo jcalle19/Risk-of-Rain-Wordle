@@ -47,7 +47,6 @@ const search = {
     select_item_handler : function(item) {
         let item_name = item.innerHTML;
         item.style.border = '1px solid black';
-        console.log(item_name, 'setting handler');
 
         item.addEventListener("click", () => {
             this.search_bar.value = item_name; // Assuming 'this' context is correct
@@ -64,10 +63,8 @@ const search = {
     filter : function() {
         window.setTimeout(() => {}, 100);
         let input_text = this.search_bar.value;
-        console.log(input_text);
         let matching = [];
         let poss_inputs = items_sorted.get(input_text[0]);
-        //console.log(poss_inputs);
 
         if (input_text.length === 0) {
             this.make_item_list();

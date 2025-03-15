@@ -149,6 +149,30 @@ table img {
     margin: 0 auto 5px;
 }
 
+.info-boxes {
+    min-width: 100px;
+    overflow: scroll;
+    overflow-x: hidden;
+    display:inline-block;
+    margin-left: 0;
+    border: 1px solid red;
+    height: 460px;
+    z-index: 100;
+}
+
+/*
+@media (width < 1200px) {
+    .info-boxes {
+        width: 50vw;
+    }
+
+    #info-display {
+        right: 1000px;
+        background-color: yellow;
+    }
+}
+
+*/
 table th {
     background-color: rgba(42,36,36, 90);
     color: #cd1c63;
@@ -167,6 +191,7 @@ table td {
     animation-duration: 1s;
     animation-fill-mode: forwards;
 }
+
 
 #input-search {
     display: flex;
@@ -249,9 +274,14 @@ table td {
     flex-direction: row;
 }
 
+.format-items {
+    position: absolute !important;
+}
+
 #info-display {
     display: inline-block;
-    position: relative; 
+    position: absolute;
+    left: 735px;
     overflow: hidden;
     height: 100%;
     width:10%;

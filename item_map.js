@@ -138,6 +138,18 @@ const items_sorted = new Map([
     ["z", []],
 ]);
 
+
+/*All items included in this table are those in the table below this one*/
+const items_sorted_categories = new Map([
+    ["?r", 'soldierssyringe', 'lensmakersglasses', 'bustlingfungus', 'topazbrooch'],
+    ["?d", 'soldierssyringe', 'lensmakersglasses'],
+    ["?h", 'bustlingfungus', 'topazbrooch'],
+    ["?u", 'topazbrooch'],
+    ["?!r", ],
+    ["?!d", ],
+    ["?!h", ],
+    ["?!u", ],
+])
 const  items_effect_values = new Map([
     ['soldierssyringe', [/*+10% base damage*/(d,n) => {return d + (.1 * n)}]],
     ['lensmakersglasses', [/*+10% critical strike chance*/ (d,n) => {return d + (.1 * n)}]],
@@ -164,6 +176,8 @@ const  items_effect_values = new Map([
         - make them take up the slots on the table after clearing it 
         - need table clear animation and item clear animation
 
+    Items will either be on kill, on guess, or passive stat changes
+    
     ok maybe you can do it in either order
 
     in order to implement any of the aoe items you need to revamp the combat system

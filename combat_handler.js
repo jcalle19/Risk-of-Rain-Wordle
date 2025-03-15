@@ -24,6 +24,8 @@ const combatHandler = {
     enemy_display_health : document.getElementById('enemy-health'),
 
     game_start : function() {
+        this.update_player_health(this.player_info.health_initial);
+        this.display_stage_items();
         this.generate_enemy();
     },
 
@@ -81,6 +83,150 @@ const combatHandler = {
 
     give_items : function() {
 
+    },
+
+    display_stage_items : function() {
+        let item_table = document.getElementById('item-select');
+        let current_row;
+        let current_node;
+        for (let j = 0; j < 2; j++) {
+            current_row = document.createElement('tr');
+            for (let i = 0; i < 7; i++) { //generate random item
+                current_node = document.createElement('td');
+                this.format_item_cell(current_node);
+                current_row.appendChild(current_node);
+            }
+            item_table.appendChild(current_row);
+        }
+    },
+
+    //will add styling and text based on chest type
+    //will add event handler for on click transition
+    format_item_cell : function(cell) {
+        //webApp.setRotations('');
+        let new_chest = this.generate_stage_items();
+        this.set_text(new_chest, cell);
+        this.set_color(new_chest, cell);
+        
+    },
+
+    set_text : function(new_chest, cell) {
+        if (new_chest.size === 'small') {
+            cell.innerHTML = '?';
+        } else if (new_chest.size === 'large') {
+            cell.innerHTML = '?!';
+        }
+        cell.style.fontSize = '30px';
+    },
+
+    set_color : function(new_chest, cell) {
+        switch (new_chest.type) {
+            case 'regular':
+                cell.style.backgroundColor = '#a5a5a5';
+                cell.style.borderLeft = '5px solid #7b7b7b';
+                cell.style.borderRight = '5px solid #7b7b7b';
+                cell.style.borderTop = '5px solid #c3c3c3';
+                cell.style.borderBottom = '5px solid #c3c3c3';
+                break;
+            case 'damage':
+                cell.style.backgroundColor = "red";
+                cell.style.borderLeft = "5px solid #9b0202";
+                cell.style.borderRight = "5px solid #9b0202";
+                cell.style.borderTop = "5px solid #f65353";
+                cell.style.borderBottom = "5px solid #f65353";
+                break;
+            case 'healing':
+                cell.style.backgroundColor = "#5eae2f";
+                cell.style.borderLeft = "5px solid #408816";
+                cell.style.borderRight = "5px solid #408816";
+                cell.style.borderTop = "5px solid #85da54";
+                cell.style.borderBottom = "5px solid #85da54";
+                break;
+            case 'utility':
+                cell.style.backgroundColor = "#445eb5";
+                cell.style.borderLeft = "5px solid #3954A1";
+                cell.style.borderRight = "5px solid #3954A1";
+                cell.style.borderTop = "5px solid #6280ED";
+                cell.style.borderBottom = "5px solid #6280ED";
+                break;
+            default:
+                console.log('something went wrong', new_chest.type);
+        }
+    },
+
+    /*
+    1-2 = large damage chest
+    3-4 = large healing chest
+    5-6 = large utility chest
+    7-20 = regular large chest
+    21-25 = damage chest
+    26-30 = healing chest
+    31-35 = utility chest
+    36-70= regular chest
+    */
+    generate_stage_items : function() {
+        let randNum = Math.ceil(Math.random() * 100);
+        let chest = {
+            type:'',
+            size: '',
+        }
+        switch (true) {
+            case this.inRange_inclusive(randNum, 1,2):
+                chest.type='damage';
+                chest.size='large';
+                console.log('large damage chest', randNum);
+                break;
+            case this.inRange_inclusive(randNum, 3,4):
+                chest.type='healing';
+                chest.size='large';
+                console.log('large healing chest', randNum);
+                break;
+            case this.inRange_inclusive(randNum, 5,6):
+                chest.type='utility';
+                chest.size='large';
+                console.log('large utility chest', randNum);
+                break;
+            case this.inRange_inclusive(randNum, 7,20):
+                chest.type='regular';
+                chest.size='large';
+                console.log('large chest regular', randNum);
+                break;
+            case this.inRange_inclusive(randNum, 21,27):
+                chest.type='damage';
+                chest.size='small';
+                console.log('damage chest', randNum);
+                break;
+            case this.inRange_inclusive(randNum, 27,33):
+                chest.type='healing';
+                chest.size='small';
+                console.log('healing chest', randNum);
+                break;
+            case this.inRange_inclusive(randNum, 34,40):
+                chest.type='utility';
+                chest.size='small';
+                console.log('utility chest', randNum);
+                break;
+            case this.inRange_inclusive(randNum, 41,80):
+                chest.type='regular';
+                chest.size='small';
+                console.log('regular chest', randNum);
+                break;
+            default:
+                console.log('nothing', randNum);
+                break;
+        }
+        return chest;
+    },
+
+    inRange_inclusive : function(value, min, max) {
+        if (min <= value && value <= max) {
+            return true;
+        } else {return false}
+    },
+
+    clear_items : function() {
+        let item_table = document.getElementById('item-select');
+        item_table.innerHTML = '';
     },
 
     calc_damage_dealt : function(colors) {
